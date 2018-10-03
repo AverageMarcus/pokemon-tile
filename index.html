@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Pokemon Tiles</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="module" src="./dist/index.js"></script>
+    <style>
+      html, body, main {
+        height: 100%;
+      }
+      main {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        justify-content: center;
+        max-width: 600px;
+        margin: 0 auto;
+        align-content: center;
+      }
+      main > * {
+        box-sizing: border-box;
+        flex-basis: calc(100% / 3);
+        padding: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+        <pokemon-tile pokedexId="1"></pokemon-tile>
+        <pokemon-tile pokedexId="2"></pokemon-tile>
+        <pokemon-tile pokedexId="3"></pokemon-tile>
+        <pokemon-tile pokedexId="4"></pokemon-tile>
+        <pokemon-tile pokedexId="5"></pokemon-tile>
+        <pokemon-tile pokedexId="6"></pokemon-tile>
+        <pokemon-tile pokedexId="7"></pokemon-tile>
+        <pokemon-tile pokedexId="8"></pokemon-tile>
+        <pokemon-tile pokedexId="9"></pokemon-tile>
+    </main>
+  </body>
+</html>
