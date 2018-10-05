@@ -1,6 +1,8 @@
 # pokemon-tile
 Web Component to display a tile showing a specific Pokémon. Make use of the [PokéApi](https://pokeapi.co/)
 
+[Live Demo](https://averagemarcus.github.io/pokemon-tile/) | [NPM](https://www.npmjs.com/package/@averagemarcus/pokemon-tile)
+
 ## Usage
 
 1. Include a script reference to the module:
