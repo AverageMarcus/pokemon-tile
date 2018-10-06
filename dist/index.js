@@ -1764,7 +1764,14 @@
         return {
           pokedexId: {
             type: String,
-            attrName: 'pokedexId'
+            attribute: 'pokedex-id'
+          },
+          pokemonName: {
+            type: String,
+            attribute: 'pokemon-name'
+          },
+          shiny: {
+            type: Boolean
           }
         };
       }
@@ -1777,12 +1784,12 @@
 
       async getAsyncData() {
         if (this.data) return;
-        await this.getImage(this.pokedexId);
+        await this.getImage(this.pokedexId, this.pokemonName);
         this.requestUpdate();
       }
 
-      getImage(id) {
-        return fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`)
+      getImage(id, name) {
+        return fetch(`https://pokeapi.co/api/v2/pokemon/${id || name}/`)
           .then(res => res.json())
           .then(pokemon => {
             this.data = pokemon;
@@ -1821,6 +1828,16 @@
           background-size: cover;
           background-position: center -20px;
         }
+
+        .shiny {
+          position: absolute;
+          top: 4px;
+          right: 4px;
+          height: 25px;
+          width: 25px;
+          background-image: url("data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9JzMwMHB4JyB3aWR0aD0nMzAwcHgnICBmaWxsPSIjMDAwMDAwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgMTAwIDEwMCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMTAwIDEwMDsiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxwYXRoIGQ9Ik00Nyw4MS40YzAtNy4yLTUuOC0xMy0xMy0xM2M3LjIsMCwxMy01LjgsMTMtMTNjMCw3LjIsNS44LDEzLDEzLDEzQzUyLjgsNjguNCw0Nyw3NC4yLDQ3LDgxLjR6IE00OC45LDM1LjMgIGMtNy4yLDAtMTMtNS44LTEzLTEzYzAsNy4yLTUuOCwxMy0xMywxM2M3LjIsMCwxMyw1LjgsMTMsMTNDMzUuOSw0MS4xLDQxLjcsMzUuMyw0OC45LDM1LjN6IE03Ny45LDQ0LjRjLTcuMiwwLTEzLTUuOC0xMy0xMyAgYzAsNy4yLTUuOCwxMy0xMywxM2M3LjIsMCwxMyw1LjgsMTMsMTNDNjUsNTAuMiw3MC44LDQ0LjQsNzcuOSw0NC40eiI+PC9wYXRoPjwvc3ZnPg==");
+          background-size: cover;
+        }
       </style>
     `;
 
@@ -1830,7 +1847,7 @@
 
         <figure class="loading">
           <figcaption>
-            #${this.pokedexId}
+            ${this.pokedexId ? '#' + this.pokedexId : this.pokemonName}
           <figcaption>
         </figure>
       `;
@@ -1841,13 +1858,19 @@
             background = `linear-gradient(90deg, ${typeColours[types[0]]} 50%, ${typeColours[types[1]]} 50%)`;
           }
 
+          let sprite = this.data.sprites.front_default;
+          if (this.shiny) {
+            sprite = this.data.sprites.front_shiny || this.data.sprites.front_default;
+          }
+
           return html`
         ${style}
 
         <figure style="background: ${background}">
-          <img src="${this.data.sprites.front_default}"/>
+          <img src="${sprite}"/>
+          <div class="${this.shiny ? 'shiny' : ''}"></div>
           <figcaption>
-            #${this.pokedexId} ${this.data.name}
+            #${this.data.id} ${this.data.name}
           <figcaption>
         </figure>
       `;

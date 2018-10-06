@@ -11,7 +11,9 @@ Web Component to display a tile showing a specific Pokémon. Make use of the [Po
 ```
 2. Add a `<pokemon-tile>` element to your page
 ```html
-<pokemon-tile pokedexId="25"></pokemon-tile>
+<pokemon-tile pokedex-id="25"></pokemon-tile>
+<pokemon-tile pokemon-name="ditto"></pokemon-tile>
+<pokemon-tile pokedex-id="6" shiny></pokemon-tile>
 ```
 
 ## Contributions
